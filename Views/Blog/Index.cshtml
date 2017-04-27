@@ -1,0 +1,150 @@
+﻿@model BlogMoto.Models.Blog
+
+@{
+    ViewBag.Title = "Blog Post";
+}
+
+        <h2>Blog Post</h2>
+
+        <button id="add_blog" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_blog">
+            Create Blog
+        </button><br /><br />
+        @Html.Action("ListOfEmployee")
+<div class="modal fade" id="create_blog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #428bca; color: #FFF">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">Create Blog</h3>
+            </div>
+
+            @using (Html.BeginForm())
+            {
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+
+                    <div class="container">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.title)
+                                    @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.datePublish)
+                                    @Html.EditorFor(model => model.datePublish, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.datePublish, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="margin-bottom: 10px;">
+
+                            <div class="col-md-12">
+                                @Html.LabelFor(model => model.content)
+                                @Html.EditorFor(model => model.content, new { htmlAttributes = new { @class = "form-control", style = "height: 100px;", placeholder = "Enter your blog post here:" } })
+                                @Html.ValidationMessageFor(model => model.content, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="margin-bottom: 10px;">
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.url)
+                                    @Html.EditorFor(model => model.url, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.url, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.tags)
+                                    @Html.EditorFor(model => model.tags, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.tags, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.author)
+                                    @Html.EditorFor(model => model.author, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.author, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 10px;">
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.createdBy)
+                                    @Html.EditorFor(model => model.createdBy, new { htmlAttributes = new { @class = "form-control", @Value = "0" } })
+                                    @Html.ValidationMessageFor(model => model.createdBy, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.modifiedBy)
+                                    @Html.EditorFor(model => model.modifiedBy, new { htmlAttributes = new { @class = "form-control", @Value = "0" } })
+                                    @Html.ValidationMessageFor(model => model.modifiedBy, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.dateCreated)
+                                    @Html.EditorFor(model => model.dateCreated, new { htmlAttributes = new { @class = "form-control", @Value = @ViewBag.CurrentDateTime } })
+                                    @Html.ValidationMessageFor(model => model.dateCreated, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-bottom: 10px;">
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.dateModified)
+                                    @Html.EditorFor(model => model.dateModified, new { htmlAttributes = new { @class = "form-control", @Value = @ViewBag.CurrentDateTime } })
+                                    @Html.ValidationMessageFor(model => model.dateModified, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-md-8">
+                                    @Html.LabelFor(model => model.active)
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.active)
+                                        @Html.ValidationMessageFor(model => model.active, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="btn_create_blog" type="submit" class="btn btn-primary">Create Blog</button>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #d2322d; color: #FFF">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Delete blog</h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <h4>Are you sure you want to delete this blog?<br />This action cannot be undone once you delete.</h4>
+                <h4 id="blog_title" style="background-color: #c7c832; color: #FFF;"></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="btn_delete_blog" type="button" class="btn btn-danger">Delete anyway</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

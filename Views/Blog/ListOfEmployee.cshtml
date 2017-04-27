@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BlogMoto.Models.Blog>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th width="100">@Html.DisplayNameFor(model => model.title)</th>
+                <th>@Html.DisplayNameFor(model => model.content)</th>
+                <th>@Html.DisplayNameFor(model => model.datePublish)</th>
+                <th>@Html.DisplayNameFor(model => model.url)</th>
+                <th>@Html.DisplayNameFor(model => model.tags)</th>
+                <th>@Html.DisplayNameFor(model => model.author)</th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.createdBy)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.modifiedBy)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dateCreated)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dateModified)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.active)
+                    </th>*@
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@(item.title.Length >= 20 ? @item.title.ToString().Substring(0, 20) + "..." : @item.title)</td>
+                    <td>@(item.content.Length >= 50 ? @item.content.ToString().Substring(0, 50) + "..." : @item.content)</td>
+                    <td>@String.Format("{0:D}", @item.datePublish)</td>
+                    <td><a href="@item.url">@(@item.url.Length >= 20 ? @item.url.ToString().Substring(0, 20) + "..." : @item.url)</a></td>
+                    <td>@(item.tags != null ? item.tags : "N/A")</td>
+                    <td>@Html.DisplayFor(modelItem => item.author)</td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.createdBy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.modifiedBy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dateCreated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dateModified)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.active)
+                        </td>*@
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.blogId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.blogId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.blogId })
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>    
